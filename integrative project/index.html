@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Journeys Barranquilla - Descubre la Arenosa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav id="navegacion">
+        <div id="contenedor-nav">
+            <div id="logo-contenedor">
+                <img id="logo" src="https://placehold.co/200x80?text=Great+Journeys+BAQ" alt="Logo de Great Journeys Barranquilla con colores del Carnaval">
+            </div>
+            <div id="menu-desktop">
+                <a href="#">Inicio</a>
+                <a href="#">Tours</a>
+                <a href="#">Eventos</a>
+                <a href="#">Nosotros</a>
+                <button id="addTourBtn">
+                    <i class="fas fa-plus"></i>Agregar Tour
+                </button>
+            </div>
+            <div id="menu-mobile-btn-contenedor">
+                <button id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu">
+            <a href="#">Inicio</a>
+            <a href="#">Tours</a>
+            <a href="#">Eventos</a>
+            <a href="#">Nosotros</a>
+            <button id="addTourMobileBtn">
+                <i class="fas fa-plus"></i>Agregar Tour
+            </button>
+        </div>
+    </nav>
+
+    <div id="hero">
+        <div>
+            <h1>Descubre Barranquilla</h1>
+            <p>La Puerta de Oro de Colombia</p>
+            <div>
+                <button id="btn-eventos">
+                    <i class="fas fa-calendar-alt"></i>Eventos Del Carnaval
+                </button>
+                <button id="btn-tours">
+                    <i class="fas fa-map-marked-alt"></i>Tours Culturales
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="destacados">
+        <div id="contenedor-destacados">
+            <div>
+                <i class="fas fa-umbrella-beach"></i>
+                <h3>Playas</h3>
+                <p>Hermosas playas del Río Magdalena</p>
+            </div>
+            <div>
+                <i class="fas fa-utensils"></i>
+                <h3>Gastronomía</h3>
+                <p>Sabores únicos del Caribe</p>
+            </div>
+            <div>
+                <i class="fas fa-music"></i>
+                <h3>Musica</h3>
+                <p>Cuna de la Cumbia</p>
+            </div>
+            <div>
+                <i class="fas fa-monument"></i>
+                <h3>Cultura</h3>
+                <p>Patrimonio Cultural Inmaterial</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contenido-principal">
+        <div id="crudForm">
+            <h2>
+                <i class="fas fa-plus-circle"></i>Nuevo Tour Barranquilla
+            </h2>
+            <form id="tourForm">
+                <input type="hidden" id="tourId">
+                <div id="formulario-campos">
+                    <div>
+                        <label for="title">Nombre del Tour</label>
+                        <input type="text" id="title" name="title" placeholder="Ej: Tour Carnaval de Barranquilla">
+                    </div>
+                    <div>
+                        <label for="location">Lugar</label>
+                        <input type="text" id="location" name="location" placeholder="Ej: Centro Histórico, Malecón, etc.">
+                    </div>
+                    <div>
+                        <label for="price">Precio (COP)</label>
+                        <input type="number" id="price" name="price" placeholder="Ej: 50000">
+                    </div>
+                    <div>
+                        <label for="duration">Duración (horas)</label>
+                        <input type="number" id="duration" name="duration" placeholder="Ej: 3">
+                    </div>
+                    <div>
+                        <label for="description">Descripción</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Describe el tour incluyendo puntos de interés..."></textarea>
+                    </div>
+                    <div>
+                        <label>Imagen/GIF del Tour</label>
+                        <div id="mediaContainer">
+                            <img id="selectedMedia">
+                            <div id="mediaPlaceholder">
+                                <i class="fas fa-camera-retro"></i>
+                                <p>Haz clic para agregar una imagen del tour</p>
+                                <p>Formatos: JPG, PNG, GIF</p>
+                            </div>
+                        </div>
+                        <input type="file" id="mediaInput" accept="image/*,.gif">
+                    </div>
+                </div>
+                <div>
+                    <button type="button" id="cancelBtn">
+                        Cancelar
+                    </button>
+                    <button type="submit" id="saveBtn">
+                        Guardar Tour
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="seccion-tours">
+            <div id="contenedor-tours-header">
+                <div>
+                    <h2>Tours en Barranquilla</h2>
+                    <p>Descubre los mejores planes turísticos en la Arenosa</p>
+                </div>
+                <div id="filtros">
+                    <button id="filterAll">Todos</button>
+                    <button id="filterCultural">Cultural</button>
+                    <button id="filterGastronomic">Gastronómico</button>
+                </div>
+            </div>
+            <div id="toursContainer">
+            </div>
+        </div>
+
+        <div id="seccion-cultura">
+            <h2>Cultura Barranquillera</h2>
+            <div id="tarjeta-cultura">
+                <div id="imagen-cultura">
+                    <img src="https://placehold.co/800x500?text=Carnaval+de+Barranquilla+Festival" alt="Carnaval de Barranquilla: Personas disfrazadas bailando en la calle, trajes coloridos con plumas y máscaras">
+                </div>
+                <div id="texto-cultura">
+                    <div>Patrimonio de la Humanidad</div>
+                    <h3>El Carnaval de Barranquilla</h3>
+                    <p>
+                        Considerado la fiesta folclórica y cultural más importante de Colombia, celebrado antes de la Cuaresma. Durante cuatro días la ciudad se convierte en un escenario de danzas, música tradicional, desfiles y eventos culturales.
+                    </p>
+                    <div>
+                        <button id="btn-cultura">
+                            <i class="fas fa-calendar-day"></i>Ver Programación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div id="contenedor-footer">
+            <div id="footer-columnas">
+                <div>
+                    <h3>
+                        <img src="https://placehold.co/150x50?text=Great+Journeys+BAQ" alt="Logo Great Journeys Barranquilla">
+                    </h3>
+                    <p>Promoviendo el turismo en Barranquilla, Colombia.</p>
+                    <div id="redes-sociales">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="#">Tours Populares</a></li>
+                        <li><a href="#">Eventos del Carnaval</a></li>
+                        <li><a href="#">Gastronomía Local</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Compañía</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Guías Turísticos</a></li>
+                        <li><a href="#">Testimonios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calle 72 #52-145, Barranquilla</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+57 300 123 4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@greatjourneysbaq.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="footer-bottom">
+                <p>© 2023 Great Journeys Barranquilla. Todos los derechos reservados.</p>
+                <div>
+                    <a href="#">Términos</a>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
