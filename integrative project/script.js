@@ -66,11 +66,8 @@ const mobileMenu = document.getElementById('mobileMenu');
 const cancelBtn = document.getElementById('cancelBtn');
 const mediaContainer = document.getElementById('mediaContainer');
 const mediaInput = document.getElementById('mediaInput');
-const selectedMedia = document = document.getElementById('selectedMedia');
+const selectedMedia = document.getElementById('selectedMedia');
 const mediaPlaceholder = document.getElementById('mediaPlaceholder');
-const filterAll = document.getElementById('filterAll');
-const filterCultural = document.getElementById('filterCultural');
-const filterGastronomic = document.getElementById('filterGastronomic');
 const filterButtons = document.querySelectorAll('#filtros button');
 
 // Campos del formulario
@@ -85,16 +82,47 @@ const description = document.getElementById('description');
 let currentMode = 'add';
 let selectedTourImage = '';
 
-// Inicializar la aplicación
-function init() {
-    renderTours();
-    setupEventListeners();
+// **Nuevas Variables para el Login y Perfiles**
+const loginBtn = document.getElementById('loginBtn');
+const loginMobileBtn = document.getElementById('loginMobileBtn');
+const authOverlay = document.getElementById('auth-overlay');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const showRegisterLink = document.getElementById('show-register');
+const showLoginLink = document.getElementById('show-login');
+const userProfileBtn = document.getElementById('user-profile-btn');
+const logoutBtn = document.getElementById('logoutBtn');
+const addTourBtns = document.querySelectorAll('.admin-only'); // Para ocultar/mostrar
+const interesOverlay = document.getElementById('interes-overlay');
+const interesForm = document.getElementById('interes-form');
+const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+// Estado del usuario
+let currentUser = null; // Puede ser 'admin' o 'user'
+
+// Funciones de control de la UI
+function updateUI() {
+    if (currentUser === 'admin') {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (loginMobileBtn) loginMobileBtn.style.display = 'none';
+        if (userProfileBtn) userProfileBtn.style.display = 'block';
+        addTourBtns.forEach(btn => btn.style.display = 'block');
+    } else if (currentUser === 'user') {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (loginMobileBtn) loginMobileBtn.style.display = 'none';
+        if (userProfileBtn) userProfileBtn.style.display = 'block';
+        addTourBtns.forEach(btn => btn.style.display = 'none');
+    } else {
+        if (loginBtn) loginBtn.style.display = 'block';
+        if (loginMobileBtn) loginMobileBtn.style.display = 'block';
+        if (userProfileBtn) userProfileBtn.style.display = 'none';
+        addTourBtns.forEach(btn => btn.style.display = 'none');
+    }
 }
 
 // Renderizar todos los tours
 function renderTours(filterType = 'all') {
     toursContainer.innerHTML = '';
-
     const filteredTours = filterType === 'all' ?
         tours :
         tours.filter(tour => tour.type === filterType);
@@ -111,26 +139,22 @@ function renderTours(filterType = 'all') {
         cardImageContainer.appendChild(img);
 
         const typeSpanContainer = document.createElement('div');
+        typeSpanContainer.className = 'type-label';
         const typeSpan = document.createElement('span');
         typeSpan.textContent = tour.type === 'cultural' ? 'Cultural' : 'Gastronómico';
         typeSpanContainer.appendChild(typeSpan);
         cardImageContainer.appendChild(typeSpanContainer);
 
         const btnContainer = document.createElement('div');
+        btnContainer.className = 'admin-only'; // Solo visible para admins
         const editBtn = document.createElement('button');
         editBtn.setAttribute('id', `edit-btn-${tour.id}`);
-        const editIcon = document.createElement('i');
-        editIcon.className = 'fas fa-edit';
-        editIcon.style.color = 'blue';
-        editBtn.appendChild(editIcon);
+        editBtn.innerHTML = '<i class="fas fa-edit" style="color: blue;"></i>';
         btnContainer.appendChild(editBtn);
 
         const deleteBtn = document.createElement('button');
         deleteBtn.setAttribute('id', `delete-btn-${tour.id}`);
-        const deleteIcon = document.createElement('i');
-        deleteIcon.className = 'fas fa-trash';
-        deleteIcon.style.color = 'red';
-        deleteBtn.appendChild(deleteIcon);
+        deleteBtn.innerHTML = '<i class="fas fa-trash" style="color: red;"></i>';
         btnContainer.appendChild(deleteBtn);
         cardImageContainer.appendChild(btnContainer);
 
@@ -178,6 +202,21 @@ function renderTours(filterType = 'all') {
         const interestBtn = document.createElement('button');
         interestBtn.setAttribute('id', `interes-btn-${tour.id}`);
         interestBtn.textContent = 'Me interesa';
+
+        interestBtn.addEventListener('click', () => {
+            if (currentUser) {
+                // Si el usuario está logueado, mostrar el formulario de "Me interesa"
+                interesOverlay.style.display = 'flex';
+                interesForm.reset();
+            } else {
+                // Si no está logueado, pedirle que inicie sesión
+                alert('Por favor, inicia sesión para mostrar tu interés en este tour.');
+                authOverlay.style.display = 'flex';
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            }
+        });
+
         buttonContainer.appendChild(interestBtn);
 
         tourCard.appendChild(cardImageContainer);
@@ -186,7 +225,7 @@ function renderTours(filterType = 'all') {
 
         toursContainer.appendChild(tourCard);
 
-        // Agregamos listeners a los botones recién creados
+        // Agregamos listeners a los botones solo si el usuario es admin
         editBtn.addEventListener('click', () => {
             editTour(tour.id);
         });
@@ -195,73 +234,83 @@ function renderTours(filterType = 'all') {
             deleteTour(tour.id);
         });
     });
+
+    updateUI(); // Asegura que los botones se muestren/oculten al renderizar
+}
+
+// Configurar todos los event listeners
+function setupEventListeners() {
+    if (addTourBtn) {
+        addTourBtn.addEventListener('click', () => {
+            currentMode = 'add';
+            showForm();
+        });
+    }
+
+    if (addTourMobileBtn) {
+        addTourMobileBtn.addEventListener('click', () => {
+            currentMode = 'add';
+            showForm();
+            mobileMenu.style.display = 'none'; // Ocultar el menú móvil al abrir el formulario
+        });
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', hideForm);
+    }
+
+    if (tourForm) {
+        tourForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveTour();
+        });
+    }
+
+    if (mediaContainer) {
+        mediaContainer.addEventListener('click', () => {
+            mediaInput.click();
+        });
+    }
+
+    if (mediaInput) {
+        mediaInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    selectedTourImage = event.target.result;
+                    mediaPlaceholder.style.display = 'none';
+                    selectedMedia.style.display = 'block';
+                    selectedMedia.src = selectedTourImage;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Agregar el listener a los botones de filtro
+    filterButtons.forEach(button => {
+        button.addEventListener('click', handleFilterClick);
+    });
 }
 
 // Función para manejar los clics en los botones de filtro
 function handleFilterClick(e) {
-    // Quitar la clase 'active' de todos los botones
     filterButtons.forEach(button => button.classList.remove('active'));
-
-    // Agregar la clase 'active' al botón clickeado
     e.target.classList.add('active');
-
-    // Obtener el tipo de filtro del ID del botón
     let filterType = 'all';
     if (e.target.id === 'filterCultural') {
         filterType = 'cultural';
     } else if (e.target.id === 'filterGastronomic') {
         filterType = 'gastronomic';
     }
-
-    // Renderizar los tours con el filtro seleccionado
     renderTours(filterType);
-}
-
-// Configurar todos los event listeners
-function setupEventListeners() {
-    addTourBtn.addEventListener('click', () => {
-        currentMode = 'add';
-        showForm();
-    });
-
-    addTourMobileBtn.addEventListener('click', () => {
-        currentMode = 'add';
-        showForm();
-    });
-
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    cancelBtn.addEventListener('click', hideForm);
-
-    tourForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        saveTour();
-    });
-
-    mediaContainer.addEventListener('click', () => {
-        mediaInput.click();
-    });
-
-    mediaInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                selectedTourImage = event.target.result;
-                mediaPlaceholder.style.display = 'none';
-                selectedMedia.style.display = 'block';
-                selectedMedia.src = selectedTourImage;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Agregar el listener a los botones de filtro
-    filterButtons.forEach(button => {
-        button.addEventListener('click', handleFilterClick);
-    });
 }
 
 // Mostrar formulario en modo agregar o editar
@@ -350,5 +399,115 @@ function deleteTour(id) {
     renderTours();
 }
 
+// **Función para manejar el Login y Registro**
+function setupAuthListeners() {
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            authOverlay.style.display = 'flex';
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+        });
+    }
+
+    if (loginMobileBtn) {
+        loginMobileBtn.addEventListener('click', () => {
+            authOverlay.style.display = 'flex';
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            mobileMenu.style.display = 'none';
+        });
+    }
+
+    if (showRegisterLink) {
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.remove('active');
+            registerForm.classList.add('active');
+        });
+    }
+
+    if (showLoginLink) {
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.classList.remove('active');
+            loginForm.classList.add('active');
+        });
+    }
+
+    // Ocultar el modal al hacer clic fuera del formulario
+    if (authOverlay) {
+        authOverlay.addEventListener('click', (e) => {
+            if (e.target.id === 'auth-overlay') {
+                authOverlay.style.display = 'none';
+            }
+        });
+    }
+
+    if (interesOverlay) {
+        interesOverlay.addEventListener('click', (e) => {
+            if (e.target.id === 'interes-overlay') {
+                interesOverlay.style.display = 'none';
+            }
+        });
+    }
+
+    // Simulación de login (sin guardar datos)
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = e.target['login-username'].value;
+            const password = e.target['login-password'].value;
+
+            if (username === 'admin' && password === 'admin') {
+                currentUser = 'admin';
+            } else if (username === 'user' && password === 'user') {
+                currentUser = 'user';
+            } else {
+                alert('Usuario o contraseña incorrectos. ');
+                return;
+            }
+
+            authOverlay.style.display = 'none';
+            renderTours(); // Volver a renderizar para mostrar/ocultar botones
+            alert(`¡Bienvenido, ${currentUser}!`);
+        });
+    }
+
+    // Simulación de registro
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userType = e.target['user-type'].value;
+            currentUser = userType;
+            authOverlay.style.display = 'none';
+            renderTours();
+            alert(`¡Registro exitoso! Has iniciado sesión como ${userType}.`);
+        });
+    }
+
+    // Manejar el menú de perfil
+    if (userProfileBtn) {
+        userProfileBtn.addEventListener('click', () => {
+            userDropdownMenu.classList.toggle('show');
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            userDropdownMenu.classList.remove('show');
+            renderTours();
+            alert('Sesión cerrada.');
+        });
+    }
+}
+
 // Iniciar la app
+function init() {
+    setupEventListeners();
+    setupAuthListeners();
+    renderTours();
+}
+
+// Iniciar la aplicación al cargar la página
 init();
