@@ -4,231 +4,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Great Journeys Barranquilla - Descubre la Arenosa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Barranquilla Tours</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <nav id="navegacion">
-        <div id="contenedor-nav">
-            <div id="logo-contenedor">
-                <img id="logo" src="https://placehold.co/200x80?text=Great+Journeys+BAQ" alt="Logo de Great Journeys Barranquilla con colores del Carnaval">
+    <header>
+        <nav id="navegacion">
+            <div id="contenedor-nav">
+                <a href="#"><img src="https://placehold.co/100x48?text=Logo" alt="Logo de la compañía" id="logo"></a>
+                <div id="menu-desktop">
+                    <a href="#tours">Tours</a>
+                    <a href="#cultura">Cultura</a>
+                    <a href="#contacto">Contacto</a>
+                    <button id="loginBtn">Iniciar Sesión</button>
+                    <div id="user-profile-btn-container" style="position: relative;">
+                        <button id="user-profile-btn" style="display: none;">
+                            <img src="https://placehold.co/40x40?text=User" alt="Perfil">
+                        </button>
+                        <div id="user-dropdown-menu" class="dropdown-menu">
+                            <button id="logoutBtn">Cerrar sesión</button>
+                        </div>
+                    </div>
+                    <button id="addTourBtn" class="admin-only">Añadir Tour</button>
+                </div>
+                <div id="menu-mobile-btn-contenedor">
+                    <button id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
             </div>
-            <div id="menu-desktop">
-                <a href="#">Inicio</a>
-                <a href="#">Tours</a>
-                <a href="#">Eventos</a>
-                <a href="#">Nosotros</a>
-                <button id="addTourBtn">
-                    <i class="fas fa-plus"></i>Agregar Tour
-                </button>
-            </div>
-            <div id="menu-mobile-btn-contenedor">
-                <button id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+        </nav>
+        <div id="mobileMenu" class="md:hidden">
+            <a href="#tours">Tours</a>
+            <a href="#cultura">Cultura</a>
+            <a href="#contacto">Contacto</a>
+            <button id="loginMobileBtn">Iniciar Sesión</button>
+            <button id="addTourMobileBtn" class="admin-only">Añadir Tour</button>
         </div>
-        <div id="mobileMenu">
-            <a href="#">Inicio</a>
-            <a href="#">Tours</a>
-            <a href="#">Eventos</a>
-            <a href="#">Nosotros</a>
-            <button id="addTourMobileBtn">
-                <i class="fas fa-plus"></i>Agregar Tour
-            </button>
-        </div>
-    </nav>
+    </header>
 
-    <div id="hero">
-        <div>
-            <h1>Descubre Barranquilla</h1>
-            <p>La Puerta de Oro de Colombia</p>
+    <main>
+        <section id="hero">
             <div>
-                <button id="btn-eventos">
-                    <i class="fas fa-calendar-alt"></i>Eventos Del Carnaval
-                </button>
-                <button id="btn-tours">
-                    <i class="fas fa-map-marked-alt"></i>Tours Culturales
-                </button>
+                <h1>Vive la Experiencia de Barranquilla</h1>
+                <p>Descubre los secretos y la alegría de la Puerta de Oro de Colombia.</p>
+                <div>
+                    <button id="btn-eventos">Explora Eventos</button>
+                    <button id="btn-tours">Nuestros Tours</button>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="destacados">
-        <div id="contenedor-destacados">
-            <div>
-                <i class="fas fa-umbrella-beach"></i>
-                <h3>Playas</h3>
-                <p>Hermosas playas del Río Magdalena</p>
+        <section id="destacados">
+            <div id="contenedor-destacados">
+                <div>
+                    <i class="fas fa-camera"></i>
+                    <h3>Momentos Únicos</h3>
+                    <p>Captura la magia en cada rincón.</p>
+                </div>
+                <div>
+                    <i class="fas fa-music"></i>
+                    <h3>Ritmo y Sabor</h3>
+                    <p>Déjate llevar por la cumbia y el sabor caribe.</p>
+                </div>
+                <div>
+                    <i class="fas fa-car-side"></i>
+                    <h3>Guías Locales</h3>
+                    <p>Expertos que te mostrarán lo auténtico.</p>
+                </div>
+                <div>
+                    <i class="fas fa-utensils"></i>
+                    <h3>Sabores Exquisitos</h3>
+                    <p>Una aventura culinaria inigualable.</p>
+                </div>
             </div>
-            <div>
-                <i class="fas fa-utensils"></i>
-                <h3>Gastronomía</h3>
-                <p>Sabores únicos del Caribe</p>
-            </div>
-            <div>
-                <i class="fas fa-music"></i>
-                <h3>Musica</h3>
-                <p>Cuna de la Cumbia</p>
-            </div>
-            <div>
-                <i class="fas fa-monument"></i>
-                <h3>Cultura</h3>
-                <p>Patrimonio Cultural Inmaterial</p>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="contenido-principal">
-        <div id="crudForm">
-            <h2>
-                <i class="fas fa-plus-circle"></i>Nuevo Tour Barranquilla
-            </h2>
-            <form id="tourForm">
-                <input type="hidden" id="tourId">
-                <div id="formulario-campos">
-                    <div>
-                        <label for="title">Nombre del Tour</label>
-                        <input type="text" id="title" name="title" placeholder="Ej: Tour Carnaval de Barranquilla">
-                    </div>
-                    <div>
-                        <label for="location">Lugar</label>
-                        <input type="text" id="location" name="location" placeholder="Ej: Centro Histórico, Malecón, etc.">
-                    </div>
-                    <div>
-                        <label for="price">Precio (COP)</label>
-                        <input type="number" id="price" name="price" placeholder="Ej: 50000">
-                    </div>
-                    <div>
-                        <label for="duration">Duración (horas)</label>
-                        <input type="number" id="duration" name="duration" placeholder="Ej: 3">
-                    </div>
-                    <div>
-                        <label for="description">Descripción</label>
-                        <textarea id="description" name="description" rows="3" placeholder="Describe el tour incluyendo puntos de interés..."></textarea>
-                    </div>
-                    <div>
-                        <label>Imagen/GIF del Tour</label>
-                        <div id="mediaContainer">
-                            <img id="selectedMedia">
-                            <div id="mediaPlaceholder">
-                                <i class="fas fa-camera-retro"></i>
-                                <p>Haz clic para agregar una imagen del tour</p>
-                                <p>Formatos: JPG, PNG, GIF</p>
+        <section id="contenido-principal">
+            <div id="crudForm">
+                <h2><i class="fas fa-plus-circle"></i> Agregar/Editar Tour</h2>
+                <form id="tourForm">
+                    <input type="hidden" id="tourId">
+                    <div id="formulario-campos">
+                        <div>
+                            <label for="title">Título del Tour</label>
+                            <input type="text" id="title" required>
+                        </div>
+                        <div>
+                            <label for="location">Ubicación</label>
+                            <input type="text" id="location" required>
+                        </div>
+                        <div>
+                            <label for="price">Precio (COP)</label>
+                            <input type="number" id="price" required>
+                        </div>
+                        <div>
+                            <label for="duration">Duración (horas)</label>
+                            <input type="number" step="0.5" id="duration" required>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label for="description">Descripción</label>
+                            <textarea id="description" rows="4" required></textarea>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label>Imagen del Tour</label>
+                            <div id="mediaContainer">
+                                <img id="selectedMedia" alt="Imagen seleccionada">
+                                <div id="mediaPlaceholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Haz clic para subir una imagen</p>
+                                    <p>PNG, JPG</p>
+                                </div>
+                                <input type="file" id="mediaInput" accept="image/png, image/jpeg">
                             </div>
                         </div>
-                        <input type="file" id="mediaInput" accept="image/*,.gif">
                     </div>
-                </div>
-                <div>
-                    <button type="button" id="cancelBtn">
-                        Cancelar
-                    </button>
-                    <button type="submit" id="saveBtn">
-                        Guardar Tour
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div id="seccion-tours">
-            <div id="contenedor-tours-header">
-                <div>
-                    <h2>Tours en Barranquilla</h2>
-                    <p>Descubre los mejores planes turísticos en la Arenosa</p>
-                </div>
-                <div id="filtros">
-                    <button id="filterAll">Todos</button>
-                    <button id="filterCultural">Cultural</button>
-                    <button id="filterGastronomic">Gastronómico</button>
-                </div>
-            </div>
-            <div id="toursContainer">
-            </div>
-        </div>
-
-        <div id="seccion-cultura">
-            <h2>Cultura Barranquillera</h2>
-            <div id="tarjeta-cultura">
-                <div id="imagen-cultura">
-                    <img src="https://placehold.co/800x500?text=Carnaval+de+Barranquilla+Festival" alt="Carnaval de Barranquilla: Personas disfrazadas bailando en la calle, trajes coloridos con plumas y máscaras">
-                </div>
-                <div id="texto-cultura">
-                    <div>Patrimonio de la Humanidad</div>
-                    <h3>El Carnaval de Barranquilla</h3>
-                    <p>
-                        Considerado la fiesta folclórica y cultural más importante de Colombia, celebrado antes de la Cuaresma. Durante cuatro días la ciudad se convierte en un escenario de danzas, música tradicional, desfiles y eventos culturales.
-                    </p>
                     <div>
-                        <button id="btn-cultura">
-                            <i class="fas fa-calendar-day"></i>Ver Programación
-                        </button>
+                        <button type="button" id="cancelBtn">Cancelar</button>
+                        <button type="submit" id="saveBtn">Guardar Tour</button>
+                    </div>
+                </form>
+            </div>
+
+            <section id="seccion-tours">
+                <div id="contenedor-tours-header">
+                    <div>
+                        <h2>Tours Disponibles</h2>
+                        <p>Descubre nuestros tours temáticos y encuentra el perfecto para ti.</p>
+                    </div>
+                    <div id="filtros">
+                        <button id="filterAll" class="active">Todos</button>
+                        <button id="filterCultural">Cultural</button>
+                        <button id="filterGastronomic">Gastronómico</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                <div id="toursContainer">
+                </div>
+            </section>
+
+            <section id="seccion-cultura">
+                <h2>Cultura de Barranquilla</h2>
+                <div id="tarjeta-cultura">
+                    <div id="imagen-cultura">
+                        <img src="https://placehold.co/600x400?text=Cultura+Barranquilla" alt="Imagen de la cultura de Barranquilla">
+                    </div>
+                    <div id="texto-cultura">
+                        <div>Patrimonio</div>
+                        <h3>El Carnaval, Corazón de la Fiesta</h3>
+                        <p>El Carnaval de Barranquilla, declarado Patrimonio Oral e Inmaterial de la Humanidad por la UNESCO, es la celebración folclórica y cultural más importante de Colombia.</p>
+                        <div>
+                            <button id="btn-cultura">Aprende Más</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
 
     <footer id="footer">
         <div id="contenedor-footer">
             <div id="footer-columnas">
                 <div>
-                    <h3>
-                        <img src="https://placehold.co/150x50?text=Great+Journeys+BAQ" alt="Logo Great Journeys Barranquilla">
-                    </h3>
-                    <p>Promoviendo el turismo en Barranquilla, Colombia.</p>
+                    <h3><img src="https://placehold.co/40x40?text=Logo" alt="Logo">Barranquilla Tours</h3>
+                    <p>Tu mejor aliado para descubrir la Puerta de Oro de Colombia.</p>
                     <div id="redes-sociales">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
                     </div>
                 </div>
                 <div>
                     <h4>Explorar</h4>
                     <ul>
-                        <li><a href="#">Tours Populares</a></li>
-                        <li><a href="#">Eventos del Carnaval</a></li>
-                        <li><a href="#">Gastronomía Local</a></li>
+                        <li><a href="#tours">Tours Populares</a></li>
+                        <li><a href="#cultura">Cultura Local</a></li>
+                        <li><a href="#">Eventos</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4>Compañía</h4>
                     <ul>
-                        <li><a href="#">Sobre Nosotros</a></li>
-                        <li><a href="#">Guías Turísticos</a></li>
-                        <li><a href="#">Testimonios</a></li>
+                        <li><a href="#">Acerca de Nosotros</a></li>
+                        <li><a href="#">Empleos</a></li>
+                        <li><a href="#">Prensa</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4>Contacto</h4>
                     <ul>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Calle 72 #52-145, Barranquilla</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone-alt"></i>
-                            <span>+57 300 123 4567</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>info@greatjourneysbaq.com</span>
-                        </li>
+                        <li><span><i class="fas fa-envelope"></i> info@bqtour.com</span></li>
+                        <li><span><i class="fas fa-phone-alt"></i> +57 300 123 4567</span></li>
+                        <li><span><i class="fas fa-map-marker-alt"></i> Calle 123, Barrio El Prado</span></li>
                     </ul>
                 </div>
             </div>
             <div id="footer-bottom">
-                <p>© 2023 Great Journeys Barranquilla. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Barranquilla Tours. Todos los derechos reservados.</p>
                 <div>
-                    <a href="#">Términos</a>
-                    <a href="#">Privacidad</a>
-                    <a href="#">Cookies</a>
+                    <a href="#">Términos y Condiciones</a>
+                    <a href="#">Política de Privacidad</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div id="auth-overlay" class="overlay">
+        <div class="auth-form-container">
+            <form id="login-form">
+                <h2>Iniciar Sesión</h2>
+                <input type="text" id="login-username" placeholder="Nombre de usuario" required>
+                <input type="password" id="login-password" placeholder="Contraseña" required>
+                <button type="submit" class="btn-primary">Entrar</button>
+                <p class="link-text">¿No tienes cuenta? <a href="#" id="show-register">Regístrate aquí</a></p>
+            </form>
+            <form id="register-form">
+                <h2>Registrarse</h2>
+                <input type="text" id="register-username" placeholder="Nombre de usuario" required>
+                <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                <input type="password" id="register-password" placeholder="Contraseña" required>
+                <div class="user-type-selection">
+                    <label>Tipo de Usuario:</label>
+                    <input type="radio" id="type-user" name="user-type" value="user" checked>
+                    <label for="type-user">Usuario</label>
+                    <input type="radio" id="type-admin" name="user-type" value="admin">
+                    <label for="type-admin">Admin</label>
+                </div>
+                <button type="submit" class="btn-primary">Registrarme</button>
+                <p class="link-text">¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="interes-overlay" class="overlay">
+        <div class="auth-form-container">
+            <form id="interes-form">
+                <h2>¡Me interesa este Tour!</h2>
+                <p>Por favor, confirma tus datos para que nos pongamos en contacto contigo.</p>
+                <input type="text" id="interes-nombre" placeholder="Tu nombre" required>
+                <input type="email" id="interes-email" placeholder="Tu correo electrónico" required>
+                <textarea id="interes-mensaje" placeholder="Déjanos un mensaje (opcional)"></textarea>
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
